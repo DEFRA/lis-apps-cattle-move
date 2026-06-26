@@ -1,0 +1,15 @@
+# Move for Cattle
+
+This project is based on the included CDP Node.js frontend template.
+
+Role: Standalone spoke microsite.
+
+Dependencies: @livestock/infrastructure, @livestock/species-cattle, @livestock/index-move
+
+Port: `3204`
+
+Primary URL path: `/cattle/move`
+
+Run locally with `npm run dev`.
+Install dependencies locally with `npm install` from this project directory.
+Use `.env.example` as the generated reference file and keep `.env` for your local values.
