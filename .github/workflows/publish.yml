@@ -16,7 +16,7 @@ permissions:
   id-token: write
 
 env:
-  AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+  AWS_ACCOUNT_ID: ${{ secrets.LIS_AWS_ACCOUNT_ID }}
   AWS_REGION: ${{ vars.AWS_REGION || 'eu-west-2'}}
   IMAGE_NAME: ${{ vars.ECR_REPOSITORY || github.event.repository.name }}
 
