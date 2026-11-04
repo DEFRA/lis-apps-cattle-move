@@ -1,7 +1,5 @@
 import { afterEach, expect, test, vi } from 'vitest'
 
-import { logger } from '@defra/lis-hubs-infra-core'
-
 afterEach(() => {
   delete process.env.LOG_FORMAT
 })
@@ -13,9 +11,10 @@ test('server.js maps LOG_FORMAT=pretty onto the logger pretty-print format', asy
 
   // Act
   await import('./server.js')
+  const { logger: serverLogger } = await import('@defra/lis-hubs-infra-core')
 
   // Assert
-  expect(logger.format).toBe('pretty-print')
+  expect(serverLogger.format).toBe('pretty-print')
 })
 
 test('server.js passes any other LOG_FORMAT value through to the logger unchanged', async () => {
@@ -25,7 +24,8 @@ test('server.js passes any other LOG_FORMAT value through to the logger unchange
 
   // Act
   await import('./server.js')
+  const { logger: serverLogger } = await import('@defra/lis-hubs-infra-core')
 
   // Assert
-  expect(logger.format).toBe('ecs')
+  expect(serverLogger.format).toBe('ecs')
 })
