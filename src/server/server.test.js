@@ -40,7 +40,6 @@ describe('createServer() CSRF protection', () => {
   })
 
   afterEach(async () => {
-    vi.restoreAllMocks()
     await server.stop({ timeout: 0 })
   })
 
@@ -63,7 +62,36 @@ describe('createServer() CSRF protection', () => {
     const response = await server.inject({
       method: 'POST',
       url: '/csrf-probe',
+      headers: {
+        'sec-fetch-site': 'same-origin',
+        'x-lis-csrf-token': 't'
+      },
       payload: {}
+    })
+
+    // Assert
+    expect(response.statusCode).toBe(403)
+  })
+
+  test('refuses a cross-site request even when the CSRF token matches', async () => {
+    // Arrange
+    server.route({
+      method: 'POST',
+      path: '/csrf-probe',
+      options: { auth: false },
+      handler: () => 'ok'
+    })
+    await server.initialize()
+
+    // Act
+    const response = await server.inject({
+      method: 'POST',
+      url: '/csrf-probe',
+      headers: {
+        'sec-fetch-site': 'cross-site',
+        'x-lis-csrf-token': 't'
+      },
+      payload: { _csrf: 't' }
     })
 
     // Assert
