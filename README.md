@@ -60,8 +60,8 @@ cp .env.example .env
 ```
 
 `.env` is loaded when running standalone, and also by a sideloaded `npm run dev` for variables that
-compose does not set. It sets the public local development `HUB_JWT_SECRET` that the lis-dev hubs
-use.
+compose does not set. It sets `PORT=3204` (the lis-dev port), the public local development
+`HUB_JWT_SECRET` that the lis-dev hubs use, and the fake STS values `CDP_JWT_ISSUER` and `CDP_JWT_JWKS_URI` (lis-dev's `lis-fake-sts`).
 
 Tests use [Vitest](https://vitest.dev/). There are no tools to install beyond `npm install`.
 
@@ -110,6 +110,9 @@ Node.js frontend template; see the config file for those.
 | `HUB_JWT_AUDIENCE` | Hub JWT audience                                                        | `livestock-spokes`                                      |
 | `HUB_ORIGINS`      | Hub origins allowed to use this spoke, and the accepted hub JWT issuers | front-office and back-office hubs and their local ports |
 | `LOG_HASH_SECRET`  | Secret. Key for hashing sensitive values in logs                        | none                                                    |
+
+Service tokens from the hubs are verified with `CDP_JWT_ISSUER` and `CDP_JWT_JWKS_URI` (set by
+CDP, and by lis-dev for the fake STS).
 
 ## Running tests
 
