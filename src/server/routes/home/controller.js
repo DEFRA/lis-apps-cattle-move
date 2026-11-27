@@ -24,11 +24,10 @@ export const homeController = {
       taxonomy,
       species,
       signedInAs,
-      directPort: 3202,
+      directPort: 3204,
       hubPath: getMountPath('cattle-move', 'holding', {
         cph: request.params.cph
-      }),
-      apiEndpoint: 'http://localhost:3227/api/species/cattle/taxonomies/move'
+      })
     })
   }
 }
